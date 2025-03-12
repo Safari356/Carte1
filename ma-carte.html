@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ma Carte - Visa Card</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7f6;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .card-container {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+            position: relative;
+        }
+
+        /* Menu en haut à gauche */
+        .menu {
+            background:#F0F0F0;
+            position: absolute;
+            top: 5px;
+            left: 1px;
+            cursor: pointer;
+            font-size: 24px;
+            color: #333;
+            border-radius: 2px;
+        }
+
+        .menu-options {
+            display: none;
+            position: absolute;
+            top: 50px;
+            left: 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .menu-options a {
+            display: block;
+            padding: 10px;
+            color: #333;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        .menu-options a:hover {
+            background-color: #f4f7f6;
+            border-radius: 5px;
+        }
+
+        /* Carte Visa */
+        .carte-visa {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            border-radius: 15px;
+            padding: 20px;
+            color: white;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .carte-visa h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .carte-visa .card-number {
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        .carte-visa .card-details {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+        }
+
+        .carte-visa .card-details span {
+            display: block;
+        }
+
+        .carte-visa .card-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 50px;
+        }
+
+        /* Solde */
+        .solde {
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .solde span {
+            color: #007bff;
+        }
+
+        /* Sections */
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .section p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #666;
+        }
+
+        /* Options */
+        .options {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .options .option {
+            background-color: #e0e7ff; /* Nouvelle couleur des boutons */
+            padding: 10px;
+            border-radius: 10px;
+            text-align: center;
+            flex: 1;
+            margin: 0 5px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .options .option:hover {
+            transform: translateY(-5px);
+            background-color: #c7d2fe; /* Couleur au survol */
+        }
+
+        .options .option i {
+            font-size: 18px;
+            margin-bottom: 5px;
+            color: #4f46e5; /* Nouvelle couleur des icônes */
+        }
+
+        .options .option span {
+            font-size: 12px;
+            color: #333;
+        }
+
+        /* Plafond */
+        .plafond {
+            background-color: #f4f7f6;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .plafond h3 {
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .plafond p {
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #666;
+        }
+
+        /* Commander une carte physique */
+        .commander-carte {
+            background-color: #4f46e5; /* Nouvelle couleur */
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 14px;
+        }
+
+        .commander-carte:hover {
+            background-color: #4338ca; /* Couleur au survol */
+        }
+
+        /* Historique des transactions */
+        .historique {
+            margin-top: 20px;
+        }
+
+        .historique h3 {
+            font-size: 16px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .historique ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .historique ul li {
+            background-color: #f4f7f6;
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            font-size: 12px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+  <!-- Menu en haut à gauche -->
+        <div class="menu" onclick="toggleMenu()">≡</div>
+        <div class="menu-options" id="menuOptions">
+            <a href="#">À propos de nous</a>
+            <a href="#">Se désinscrire</a>
+            <a href="#">Supprimer le compte</a>
+        </div>
+    <div class="card-container">
+        
+
+        <!-- Carte Visa -->
+        <div class="carte-visa">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/800px-Visa_Inc._logo.svg.png" alt="Visa Logo" class="card-logo">
+            <h2>Ma Carte Visa</h2>
+            <div class="card-number">**** **** **** 1234</div>
+            <div class="card-details">
+                <span>John Doe</span>
+                <span>12/25</span>
+            </div>
+        </div>
+
+        <!-- Solde -->
+        <div class="solde">
+            Solde : <span>31 F CFA</span>
+        </div>
+
+        <!-- Dépôt d'argent -->
+        <div class="section">
+            <h2>Déposer de l'argent</h2>
+            <p>Prochain dépôt gratuit</p>
+        </div>
+
+        <!-- Options de transfert -->
+        <div class="options">
+            <div class="option" onclick="transfert()">
+                <i class="fas fa-exchange-alt"></i>
+                <span>Transfert</span>
+            </div>
+            <div class="option" onclick="investir()">
+                <i class="fas fa-chart-line"></i>
+                <span>Investir</span>
+            </div>
+            <div class="option" onclick="achatCredit()">
+                <i class="fas fa-credit-card"></i>
+                <span>Achat crédit</span>
+            </div>
+            <div class="option" onclick="factures()">
+                <i class="fas fa-file-invoice"></i>
+                <span>Factures</span>
+            </div>
+        </div>
+
+        <!-- Abonnements et conversion -->
+        <div class="options">
+            <div class="option" onclick="abonnements()">
+                <i class="fas fa-calendar-alt"></i>
+                <span>Abonnements</span>
+            </div>
+            <div class="option" onclick="conversion()">
+                <i class="fas fa-sync-alt"></i>
+                <span>Conversion</span>
+            </div>
+        </div>
+
+        <!-- Plafond -->
+        <div class="plafond">
+            <h3>Plafond Limité à 200.000 F CFA</h3>
+            <p>31 F CFA</p>
+            <p>2.000.000 F CFA</p>
+        </div>
+
+        <!-- Commander une carte physique -->
+        <div class="commander-carte" onclick="commanderCarte()">
+            Commander une carte physique
+        </div>
+
+        <!-- Historique des transactions -->
+        <div class="historique">
+            <h3>Historique des transactions</h3>
+            <ul>
+                <li>Aucune transaction pour le moment.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Fonctions pour les options
+        function transfert() {
+            alert('Fonctionnalité de transfert en cours de développement.');
+        }
+
+        function investir() {
+            alert('Fonctionnalité d\'investissement en cours de développement.');
+        }
+
+        function achatCredit() {
+            alert('Fonctionnalité d\'achat de crédit en cours de développement.');
+        }
+
+        function factures() {
+            alert('Fonctionnalité de factures en cours de développement.');
+        }
+
+        function abonnements() {
+            alert('Fonctionnalité d\'abonnements en cours de développement.');
+        }
+
+        function conversion() {
+            alert('Fonctionnalité de conversion en cours de développement.');
+        }
+
+        function commanderCarte() {
+            alert('Fonctionnalité de commande de carte physique en cours de développement.');
+        }
+
+        // Menu en haut à gauche
+        function toggleMenu() {
+            const menuOptions = document.getElementById('menuOptions');
+            menuOptions.style.display = menuOptions.style.display === 'block' ? 'none' : 'block';
+        }
+
+        // Fermer le menu si on clique ailleurs
+        window.onclick = function (event) {
+            if (!event.target.matches('.menu')) {
+                const menuOptions = document.getElementById('menuOptions');
+                if (menuOptions.style.display === 'block') {
+                    menuOptions.style.display = 'none';
+                }
+            }
+        };
+    </script>
+</body>
+</html>
